@@ -1,0 +1,32 @@
+import random
+import string
+
+class NameGenerator:
+    def __init__(self, algorithm='random'):
+        self.algorithm = algorithm
+
+    def generate_name(self, length=8):
+        if self.algorithm == 'random':
+            return self._generate_random_name(length)
+        elif self.algorithm == 'vowel_consonant':
+            return self._generate_vowel_consonant_name(length)
+        else:
+            raise ValueError("Unsupported algorithm")
+
+    def _generate_random_name(self, length):
+        return ''.join(random.choices(string.ascii_letters, k=length))
+
+    def _generate_vowel_consonant_name(self, length):
+        vowels = 'aeiou'
+        consonants = 'bcdfghjklmnpqrstvwxyz'
+        name = ''
+        for i in range(length):
+            if i % 2 == 0:
+                name += random.choice(consonants)
+            else:
+                name += random.choice(vowels)
+        return name
+
+if __name__ == "__main__":
+    generator = NameGenerator(algorithm='vowel_consonant')
+    print("Generated Name:", generator.generate_name(length=10))
